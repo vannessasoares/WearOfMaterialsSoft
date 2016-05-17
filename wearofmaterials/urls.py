@@ -19,5 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^$', 'bancadaweb.views.home', name='home'),
     url(r'^contato/$', 'bancadaweb.views.contact', name='contact'),
+    url(r'^success/$', 'bancadaweb.views.success', name='success'),
     url(r'^admin/', admin.site.urls),
 ]
