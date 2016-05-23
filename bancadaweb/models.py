@@ -1,10 +1,22 @@
 from django.db import models
+import datetime
 
-# Create your models here.
-class Person(models.Model):
-    name = models.CharField('Nome', max_length=100)
-    password = models.CharField('Senha', max_length=100)
-    email = models.EmailField('Email', max_length=100)
-    Supercalifragilistic = models.TextField('Supercalifragilistic', max_length=100, default='SupercalifragilisticSupercalifragilisticSupercalifragilistic')
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
-    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
+
+class AnaliseDesgaste(models.Model):
+
+	tempo_inicio = models.TimeField()
+	tempo_fim = models.TimeField()
+	peso = models.DecimalField(decimal_places=5, max_digits=12)
+	
+
+	def get_analise_detail_url(self):
+		return u"/analise/detail/%i" % self.id
+	
+	def get_analise_update_url(self):
+		return u"/analise/update/%i" % self.id
+
+	def get_analise_delete_url(self):
+		return u"/analise/delete/%i" % self.id
+
+	def __str__(self):
+		return 'Análise %d' % (self.id)

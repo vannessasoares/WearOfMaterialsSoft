@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block title %} <title>Análises - Listar Todas as Análises</title> {% endblock title %}
+
+{% block content %}
+
+    {% if not analises %}
+
+      <h3> Nenhuma Análises Cadastrada. <a href="{% url 'new_analise' %}">Criar uma Análise!</a> </h3>
+
+    {% else %}
+
+        {% for analise in analises %}
+            <ul class="list-group">
+              <li class="list-group-item">
+                
+                <h3><a href="{{ analise.get_analise_detail_url }}">{{ analise }}</a></h3>
+                
+                
+                <br/>
+          
+                <p>
+                  <a href="{{ analise.get_analise_update_url }}">Editar</a> | 
+                  <a href="{{ analise.get_analise_delete_url }}">Apagar</a>
+                </p>
+              </li>
+            </ul>
+        {% endfor %}
+        
+    {% endif %} 
+
+{% endblock content %}

@@ -1,24 +1,17 @@
-"""wearofmaterials URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.9/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
 from django.conf.urls import url
 from django.contrib import admin
+from bancadaweb.views import *
 
 urlpatterns = [
-    url(r'^$', 'bancadaweb.views.home', name='home'),
-    url(r'^contato/$', 'bancadaweb.views.contact', name='contact'),
-    url(r'^success/$', 'bancadaweb.views.success', name='success'),
+    url(r'^$', Home.as_view(), name='home'),
+    url(r'^graph/', Graph.as_view(), name='graph'),
     url(r'^admin/', admin.site.urls),
+
+    # Views de Analise de Desgaste
+    url(r'^new/$'               , AnaliseDesgasteCreate.as_view(), name='new_analise'),
+    url(r'^list/'               , AnaliseDesgasteList.as_view()  , name='list_analise'),
+    url(r'^analise/detail/(?P<pk>\d+)/$', AnaliseDesgasteDetail.as_view(), name='detail_analise'),
+    url(r'^analise/update/(?P<pk>\d+)/$', AnaliseDesgasteUpdate.as_view(), name='update_analise'),
+    url(r'^analise/delete/(?P<pk>\d+)/$', AnaliseDesgasteDelete.as_view(), name='delete_analise'),
+
 ]

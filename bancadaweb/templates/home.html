@@ -1,38 +1,10 @@
 {% extends "base.html" %}
 
-{% block content %}
-
-<div class="pure-g-r content-ribbon">
-  <div class="pure-u">
-    </br>
-    <form class="pure-form pure-form-aligned" name="save_person" action="templates/success.html" method="post">
-      <fieldset>
-        <div class="pure-control-group">
-          <label for="name">Username</label>
-          <input id="name" type="text" placeholder="Username">
-        </div>
-
-        <div class="pure-control-group">
-          <label for="password">Password</label>
-          <input id="password" type="password" placeholder="Password">
-        </div>
-
-        <div class="pure-control-group">
-          <label for="email">Email Address</label>
-          <input id="email" type="email" placeholder="Email Address">
-        </div>
-
-        <div class="pure-control-group">
-          <label for="Supercalifragilistic">Supercalifragilistic</label>
-          <textarea id="Supercalifragilistic" type="text" rows="5" cols="100" placeholder="Enter something here..."></textarea>
-        </div>
-
-        <div class="pure-controls">
-          <button type="submit" class="pure-button pure-button-primary">Enviar</button>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-</div>
-
-{% endblock %}
+{% block content %}    
+    <div class="jumbotron">
+          <center><h4>Bem-vindo!</h4></center>
+        <br>
+        <center><p>Bancada de Análise de Desgaste de Materiais</p></center>
+    </div>
+    
+{% endblock content %}
