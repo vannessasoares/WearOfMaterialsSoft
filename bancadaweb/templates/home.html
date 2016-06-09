@@ -1,38 +1,310 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="pure-g-r content-ribbon">
-  <div class="pure-u">
-    </br>
-    <form class="pure-form pure-form-aligned" name="save_person" action="templates/success.html" method="post">
-      <fieldset>
-        <div class="pure-control-group">
-          <label for="name">Username</label>
-          <input id="name" type="text" placeholder="Username">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <div class="breadcrumb">
+                <form class="form-inline">
+                  <div class="form-group" style="width: 100%">
+                      <input class="form-control input-lg" type="text" placeholder="Test Name" style="width: 80%">
+                      <button type="button" class="btn btn-success btn-lg pull-right"
+                              type="button" data-toggle="collapse" data-target="#collapsePanel"
+                              aria-expanded="false" aria-controls="collapsePanel"
+                              onclick="myFunction()" id="startTest">
+                          <span class="glyphicon glyphicon glyphicon-play" ></span> Start test
+                      </button>
+                      <button type="button" class="btn btn-danger btn-lg pull-right hidden" id="stopTest">
+                          <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Stop test
+                      </button>
+                  </div>
+                </form>
+            </div>
+            </h1>
         </div>
+    </div>
+    <!-- /.row -->
 
-        <div class="pure-control-group">
-          <label for="password">Password</label>
-          <input id="password" type="password" placeholder="Password">
+    <div class="alert alert-danger hidden" role="alert" id="ErrorAlert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        Could not connect to the bench. Please, check cables.
+    </div>
+    <!-- /.row -->
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-table"></i>
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePanel" aria-expanded="true" aria-controls="collapsePanel">
+                   Test Initial Data
+                </a>
+            </h3>
         </div>
+        <!-- GENERAL INFO -->
+        <div class="row collapse in" style="padding: 20px" id="collapsePanel">
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        General
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Test speed (m/s)</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="0">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInput1">Motor speed (RPM)</label>
+                            <input type="text" class="form-control" id="exampleInput1" placeholder="0">
+                          </div>
+                           <div class="form-group">
+                            <label for="exampleInput2">Total test time</label>
+                            <input type="text" class="form-control" id="exampleInput2" placeholder="0h 0m 0s">
+                          </div>
+                            <div class="form-group">
+                                <label for="exampleInput3">Lubricant oil:</label>
+                                <input type="text" class="form-control" id="exampleInput3" placeholder="Test lubricant oil">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
 
-        <div class="pure-control-group">
-          <label for="email">Email Address</label>
-          <input id="email" type="email" placeholder="Email Address">
+            <!-- PIN INFO -->
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Pin
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                          <div class="form-group">
+                            <label for="inputPinMaterial">Material</label>
+                            <input type="text" class="form-control" id="inputPinMaterial" placeholder="Pin Material">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputPinHeight">Height (mm)</label>
+                            <input type="text" class="form-control" id="inputPinHeight" placeholder="0">
+                          </div>
+                           <div class="form-group">
+                            <label for="inputPinWeight">Weight (mg)</label>
+                            <input type="text" class="form-control" id="inputPinWeight" placeholder="0h 0m 0s">
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+
+            <!-- DISC INFO -->
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Disc
+                    </div>
+                    <div class="panel-body">
+                     <form>
+                          <div class="form-group">
+                            <label for="inputDiscMaterial">Material</label>
+                            <input type="text" class="form-control" id="inputDiscMaterial" placeholder="Disc Material">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputDiscDiameter">Diameter (mm)</label>
+                            <input type="text" class="form-control" id="inputDiscDiameter" placeholder="0">
+                          </div>
+                           <div class="form-group">
+                            <label for="inputDiscWeight">Weight (mg)</label>
+                            <input type="text" class="form-control" id="inputDiscWeight" placeholder="0h 0m 0s">
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
         </div>
+    </div>
+    <!-- /.row -->
 
-        <div class="pure-control-group">
-          <label for="Supercalifragilistic">Supercalifragilistic</label>
-          <textarea id="Supercalifragilistic" type="text" rows="5" cols="100" placeholder="Enter something here..."></textarea>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <!--Friction coefficient-->
+                    <h3 class="panel-title">
+                        <i class="fa fa-bar-chart-o fa-fw"></i>
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseDuringData" aria-expanded="true" aria-controls="collapseDuringData">
+                           Friction force x Test duration
+                        </a>
+                    </h3>
+                </div>
+                <div class="collapse in panel-body" id="collapseDuringData">
+                    <div class="panel-body" >
+                        <div class="flot-chart">
+                            <div id="graficoteste" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+
+                      <!-- List group -->
+                      <ul class="list-group">
+                        <li class="list-group-item clearfix">
+                            <div class="col-md-3">
+                                <strong>Friction coefficient</strong>
+                            </div>
+                            <div class="col-md-3">
+                                At Start: 0,045
+                            </div>
+                            <div class="col-md-3">
+                                Max: 0,650
+                            </div>
+                            <div class="col-md-3">
+                                Mean: 0,327
+                            </div>
+                        </li>
+                        <li class="list-group-item clearfix">
+                            <div class="col-xs-6 col-md-4">
+                                <strong>Test time</strong>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                Total time: 01h 40m 16s
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                Time left: 07h 23m 54s
+                            </div>
+                        </li>
+                      </ul>
+                </div>
+            </div>
         </div>
+    </div>
+    <!-- /.row -->
 
-        <div class="pure-controls">
-          <button type="submit" class="pure-button pure-button-primary">Enviar</button>
+    <!-- FINAL INFO -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-table"></i>
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinalData" aria-expanded="true" aria-controls="collapseFinalData">
+                       Test Final Data
+                    </a>
+                </h3>
+                </div>
+                <div class="panel-body collapse" id="collapseFinalData">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputPinFinalHeight">Pin Final Height (mm)</label>
+                            <input type="text" class="form-control" id="inputPinFinalHeight" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPinFinalWeight">Pin Final Weight (mg)</label>
+                            <input type="text" class="form-control" id="inputPinFinalWeight" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDiscFinalWeight">Disc Final Weight (mg)</label>
+                            <input type="text" class="form-control" id="inputDiscFinalWeight" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDiscFinalWeight">Lubricant amount (ml)</label>
+                            <input type="text" class="form-control" id="inputLubricantAmount" placeholder="0">
+                        </div>
+                      <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </fieldset>
-    </form>
-  </div>
-</div>
+        <!-- /.col-lg-4 -->
+    </div>
+    <!-- /.row -->
 
+
+<!-- /.container-fluid -->  
+{% endblock content %}
+
+{% block scripts %}
+
+<script >
+
+$(function () {
+    $(document).ready(function () {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+
+        $('#graficoteste').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function () {
+
+                        // set up the updating of the chart each second
+                        var series = this.series[0];
+                        setInterval(function () {
+                            var x = (new Date()).getTime(), // current time
+                                y = Math.random();
+                            series.addPoint([x, y], true, true);
+                        }, 1000);
+                    }
+                }
+            },
+            title: {
+                text: 'Análise de Desgaste'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Desgaste'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                name: 'Desgaste',
+                data: (function () {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+                    return data;
+                }())
+            }]
+        });
+    });
+});
+
+</script>
 {% endblock %}

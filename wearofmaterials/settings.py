@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'bootstrap3',
     'bancadaweb',
 ]
 
@@ -121,3 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Login URLs
+
+LOGIN_URL= '/'
+LOGIN_REDIRECT_URL = '/'
